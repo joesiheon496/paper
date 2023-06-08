@@ -1,4 +1,5 @@
 [해당 블로그 글 따라 쓰기](https://pebpung.github.io/registration/2022/02/03/Registration-2.html)
+[원본](https://arxiv.org/abs/1809.05231)
 
 # Deformable Registration 이란?
 
