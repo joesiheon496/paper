@@ -58,6 +58,8 @@ All data is cropped to the region of nonzero values. This has no effect on most 
 
 $$L_{total}=L_{dice}+L_{CE}$$
 
+# ...
+
 ## Training Procedure
 * All models are trained from scratch and evaluated using five-fold cross-validation on the training set. We train our networks with a combination of dice and cross- entropy loss
 * For 3D U-Nets operating on nearly entire patients (first stage of the U-Net Cascade and 3D U-Net if no cascade is necessary) we compute the dice loss for each sample in the batch and average over the batch
