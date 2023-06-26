@@ -79,36 +79,46 @@ $$L_{total}=L_{dice}+L_{CE}$$
   > voxel: 복셀은 체적 요소이며, 3차원 공간에서 정규 격자 단위의 값을 나타낸다. 복셀이라는 용어는 부피 와 픽셀 을 조합한 혼성어이다. 이것은 2차원 이미지 데이터가 픽셀로 표시되는 것에 대한 비유이다. 복셀은 의료 및 과학 데이터 시각화 및 분석에 자주 사용된다
 
 ### Data Augmentation
-* When training large neural networks from limited train- ing data, special care has to be taken to prevent overfitting.
-* We address this prob- lem by utilizing a large variety of data augmentation techniques
-* The following augmentation techniques were applied on the fly during training: random rota- tions, random scaling, random elastic deformations, gamma correction augmen- tation and mirroring.
-* Applying three dimensional data augmentation may be suboptimal if the maximum edge length of the input patch size of a 3D U-Net is more than two times as large as the shortest.
-* For datasets where this criterion applies we use our 2D data augmentation instead and apply it slice-wise for each sample.
-* The second stage of the U-Net Cascade receives the segmentations of the previous step as additional input channels
-* To prevent strong co-adaptation we apply random morphological operators (erode, dilate, open, close) and randomly remove connected components of these segmentations.
+* 제한된 훈련 데이터로 대규모 신경망을 훈련할 때 과적합을 방지하기 위해 특별한 주의를 기울여야 합니다.
+* 다양한 데이터 증대 기술을 활용하여 이 문제를 해결합니다.
+* 무작위 회전, 무작위 스케일링, 무작위 탄성 변형, 감마 보정 증강 및 미러링과 같은 증강 기술이 훈련 중에 즉석에서 적용되었습니다.
+* 3D U-Net의 입력 패치 크기의 최대 에지 길이가 최단 길이의 2배 이상인 경우 3차원 데이터 증대를 적용하는 것은 최적이 아닐 수 있습니다.
+* 이 기준이 적용되는 데이터 세트의 경우 대신 2D 데이터 확대를 사용하고 각 샘플에 대해 슬라이스 방식으로 적용합니다.
+* U-Net Cascade의 두 번째 단계는 이전 단계의 분할을 추가 입력 채널로 수신합니다.
+* 강력한 공동 적응을 방지하기 위해 임의의 형태학적 연산자(침식, 확장, 열기, 닫기)를 적용하고 이러한 분할의 연결된 구성 요소를 무작위로 제거합니다.
 
 ### Patch Sampling
-* To increase the stability of our network training we enforce that more than a third of the samples in a batch contain at least one randomly chosen foreground class.
+* 네트워크 교육의 안정성을 높이기 위해 배치의 샘플 중 1/3 이상이 무작위로 선택된 전경 클래스를 하나 이상 포함하도록 합니다.
 
 ### Inference
-* Due to the patch-based nature of our training, all inference is done patch-based as well. Since network accuracy decreases towards the border of patches, we weigh voxels close to the center higher than those close to the border, when aggregating predictions across patches. Patches are chosen to overlap by patch size / 2 and we further make use of test time data augmentation by mirroring all patches along all valid axes. Combining the tiled prediction and test time data augmentation result in segmentations where the decision for each voxel is obtained by aggregating up to 64 predictions (in the center of a patient using 3D U-Net). For the test cases we use the five networks obtained from our training set cross-validation as an ensemble to further increase the robustness of our models.
+* 교육의 패치 기반 특성으로 인해 모든 추론도 패치 기반으로 수행됩니다. 네트워크 정확도는 패치의 경계로 갈수록 감소하기 때문에 패치 전체에서 예측을 집계할 때 경계에 가까운 복셀보다 중심에 가까운 복셀의 가중치를 높게 둡니다. 패치는 패치 크기 / 2만큼 겹치도록 선택되며 모든 유효한 축을 따라 모든 패치를 미러링하여 테스트 시간 데이터 확대를 추가로 사용합니다. 타일식 예측과 테스트 시간 데이터 증가를 결합하면 최대 64개의 예측(3D U-Net을 사용하는 환자 중심)을 집계하여 각 복셀에 대한 결정을 얻는 분할이 발생합니다. 테스트 사례의 경우 훈련 세트 교차 검증에서 얻은 5개의 네트워크를 앙상블로 사용하여 모델의 견고성을 더욱 높입니다.
 
 ### Postprocessing
-* A connected component analysis of all ground truth segmentation labels is per- formed on the training data. If a class lies within a single connected component in all cases, this behaviour is interepreted as a general property of the dataset. Hence, all but the largest connected component for this class are automatically removed on predicted images of the corresponding dataset.
+* 훈련 데이터에 대해 모든 Ground Truth 세분화 레이블의 연결된 구성 요소 분석이 수행됩니다. 클래스가 모든 경우에 연결된 단일 구성 요소 내에 있는 경우 이 동작은 데이터 세트의 일반 속성으로 해석됩니다. 따라서 이 클래스의 가장 큰 연결 구성 요소를 제외한 모든 구성 요소는 해당 데이터 세트의 예측 이미지에서 자동으로 제거됩니다.
 
 ### Ensembling and Submission
-* To further increase the segmentation performance and robustness all possible combinations of two out of three of our models are ensembled for each dataset. For the final submission, the model (or ensemble) that achieves the highest mean foreground dice score on the training set cross-validation is automatically chosen.
+* 분할 성능과 견고성을 더욱 향상시키기 위해 모델 3개 중 2개의 가능한 모든 조합이 각 데이터 세트에 대해 앙상블됩니다. 최종 제출을 위해 훈련 세트 교차 검증에서 가장 높은 평균 전경 주사위 점수를 달성하는 모델(또는 앙상블)이 자동으로 선택됩니다.
 
 
 ## Experiments and Results
-* We optimize our network topologie using five-fold cross-validations on the phase 1 datasets. Our phase 1 cross-validation results as well as the corresponding submitted test set results are summarized in Table 2. - indicates that the U-Net Cascade was not applicable (i.e. necessary, according to our criteria) to a dataset because it was already fully covered by the input patch size of the 3D U-Net. The model that was used for the final submission is highlighted in bold. Although several test set submissions were allowed by the platform, we believe it to be bad practice to do so. Hence we only submitted once and report the results of this single submission. As can be seen in Table 2 our phase 1 cross-validation results are robustly recovered on the held-out test set indicating a desired absence of over-fitting. The only dataset that suffers from a dip in performance on all of its foreground classes is BrainTumour. The data of this phase 1 dataset stems from the BRATS challenge [16] for which such performance drops between validation and testing are a common sight and attributed to a large shift in the respective data and/or ground-truth distributions.
+*1단계 데이터 세트에서 5중 교차 검증을 사용하여 네트워크 토폴로지를 최적화합니다. 1단계 교차 검증 결과와 해당 제출 테스트 세트 결과가 표 2에 요약되어 있습니다. - U-Net 캐스케이드가 3D U-Net의 입력 패치 크기에 의해 이미 완전히 포함되었기 때문에 데이터 세트에 적용할 수 없음(즉, 우리 기준에 따라 필요함)을 나타냅니다. 최종 제출에 사용된 모델은 굵게 강조 표시됩니다. 여러 테스트 세트 제출이 플랫폼에서 허용되었지만 그렇게 하는 것은 나쁜 습관이라고 생각합니다. 따라서 우리는 한 번만 제출하고 이 단일 제출의 결과를 보고합니다.표 2에서 볼 수 있듯이 우리의 1단계 교차 검증 결과는 원하는 과적합이 없음을 나타내는 홀드 아웃 테스트 세트에서 견고하게 복구됩니다. T모든 포그라운드 클래스에서 성능 저하로 고통받는 유일한 데이터 세트는 BrainTumour입니다. 이 1단계 데이터 세트의 데이터는 검증과 테스트 사이의 이러한 성능 저하가 일반적이며 각 데이터 및/또는 실측 분포의 큰 변화에 기인하는 BRATS 문제에서 비롯됩니다.
 
 ![image](https://github.com/joesiheon496/paper/assets/56191064/2028042d-53c4-4567-82ca-1673d6b3c64f)
 
+Table 2. 모든 1단계 작업에서 제안된 모델에 대한 평균 주사위 점수입니다. 모든 실험은 5중 교차 검증으로 실행되었습니다. 테스트 세트 제출을 생성하는 데 사용한 모델은 굵게 강조 표시되어 있습니다. 테스트 세트의 주사위 점수는 표 하단에 표시됩니다. 굵게 표시된 테스트 주사위 점수는 원고 제출 당시 이 점수가 해당 챌린지의 온라인 리더보드에서 가장 높았음을 나타냅니다.
+
 ## Discussion
-* In this paper we present the nnU-Net segmentation framework for the medi- 
- cal domain that directly builds around the original U-Net architecture [6] and dynamically adapts itself to the specifics of any given dataset. Based on our hy- pothesis that non-architectural modifications can be much more powerful than some of the recently presented architectural modifications, the essence of this framework is a thorough design of adaptive preprocessing, training scheme and inference. All design choices required to adapt to a new segmentation task are done in a fully automatic manner with no manual interaction. For each task the nnU-Net automatically runs a five-fold cross-validation for three different automatically configures U-Net models and the model (or ensemble) with the highest mean foreground dice score is chosen for final submission. In the con- text of the Medical Segmentation Decathlon we demonstrate that the nnU-Net performs competitively on the held-out test sets of 7 highly distinct medical datasets, achieving the highest mean dice scores for all classes of all tasks (ex- cept class 1 in the BrainTumour dataset) on the online leaderboard at the time of manuscript submission. We acknowledge that training three models and picking the best one for each dataset independently is not the cleanest solution. Given a larger time-scale, one could investigate proper heuristics to identify the best model for a given dataset prior to training. Our current tendency favors the U-Net Cascade (or the 3D U-Net if the cascade cannot be applied) with the sole (close) exceptions being the Prostate and Liver tasks. Additionally, the added benefit of many of our design choices, such as the use of Leaky ReLUs instead of regular ReLUs and the parameters of our data augmentation were not properly validated in the context of this challenge. Future work will therefore focus on systematically evaluating all design choices via ablation studies.
+* 이 백서에서 우리는 원래 U-Net 아키텍처를 직접 구축하고 주어진 데이터 세트의 세부 사항에 동적으로 적응하는 의료 도메인을 위한 nnU-Net 세분화 프레임워크를 제시합니다.
+* 비 아키텍처 수정이 최근에 제시된 일부 아키텍처 수정보다 훨씬 강력할 수 있다는 가설에 따라 이 프레임워크의 본질은 적응형 전처리, 훈련 체계 및 추론의 철저한 설계입니다.
+* 새로운 세분화 작업에 적응하는 데 필요한 모든 디자인 선택은 수동 상호 작용 없이 완전 자동 방식으로 수행됩니다.
+* 각 작업에 대해 nnU-Net은 자동으로 구성되는 세 가지 다른 U-Net 모델에 대해 5중 교차 검증을 자동으로 실행하고 가장 높은 평균 전경 주사위 점수를 가진 모델(또는 앙상블)이 최종 제출을 위해 선택됩니다.
+* Medical Segmentation Decathlon의 맥락에서 우리는 nnU-Net이 7개의 매우 구별되는 의료 데이터 세트의 홀드아웃 테스트 세트에서 경쟁적으로 수행하여 모든 작업의 ​​모든 클래스에 대해 가장 높은 평균 주사위 점수를 달성함을 보여줍니다(클래스 1 제외). BrainTumour 데이터 세트)는 원고 제출 시 온라인 순위표에 표시됩니다.
+* 세 가지 모델을 교육하고 각 데이터 세트에 대해 독립적으로 최상의 모델을 선택하는 것이 가장 깨끗한 솔루션이 아님을 인정합니다.
+* 더 큰 시간 척도가 주어지면 훈련 전에 주어진 데이터 세트에 대한 최상의 모델을 식별하기 위해 적절한 휴리스틱을 조사할 수 있습니다.
+* 우리의 현재 경향은 전립선 및 간 작업인 유일한(가까운) 예외와 함께 U-Net 캐스케이드(또는 캐스케이드를 적용할 수 없는 경우 3D U-Net)를 선호합니다.
+* 또한 일반 ReLU 대신 Leaky ReLU를 사용하는 것과 같은 많은 설계 선택의 추가 이점과 데이터 증대 매개변수가 이 문제의 맥락에서 제대로 검증되지 않았습니다.
+* 따라서 향후 작업은 절제 연구를 통해 모든 설계 선택을 체계적으로 평가하는 데 중점을 둘 것입니다.
 
 ## Conclusion
-* All design choices required to adapt to a new segmentation task are done  in  a  fully  automatic  manner  with  no  manual  interaction. 
-* For  each  task the  nnU-Net  automatically  runs  a  five-fold  cross-validation  for  three  different automatically configures U-Net models and the model (or ensemble) with the highest mean foreground dice score is chosen for final submission
+* 새로운 세분화 작업에 적응하는 데 필요한 모든 디자인 선택은 수동 상호 작용 없이 완전 자동 방식으로 수행됩니다. 
+* 각 작업에 대해 nnU-Net은 3개의 다른 자동 구성 U-Net 모델에 대해 5중 교차 검증을 자동으로 실행하고 가장 높은 평균 전경 dice 점수를 가진 모델(또는 앙상블)이 최종 제출을 위해 선택됩니다.
