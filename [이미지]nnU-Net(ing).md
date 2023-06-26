@@ -37,7 +37,7 @@ Due to the large differences in  image  size  (median  shape  482×512×512  for
 4. Just like for the 2D U-Net we pool (for a maximum of 5 times) along each axis until the feature maps have size 8.
 5. For any network we limit the total number of voxels processed per optimizer step (defined as the input patch volume times the batch size) to a maximum of 5% of the dataset. For cases in excess, we reduce the batch size (with a lower- bound of 2).
 
-## reprocessing
+## preprocessing
 The  preprocessing  is  part  of  the  fully  automated  segmentation  pipeline  that our method consists of and, as such, the steps presented below are carried out without any user intervention.
 
 ### Cropping
@@ -57,14 +57,44 @@ All data is cropped to the region of nonzero values. This has no effect on most 
 * If cropping reduces the average size of patients in a dataset (in voxels) by 1/4 or more the normalization is carried out only within the mask of nonzero elements and all values outside the mask are set to 0
 * The dice loss formulation used here is a multi-class adaptation of the variantproposed in [14]. Based on past experience [13,1] we favor this formulation overother variants [8,15]. The dice loss is implemented as follows:
 $$L_{dc}=-\frac{2}{|K|}\sum_{k\in K}\frac{\sum_{i\in I}u_{i}^{k}v_i^k}{\sum_{i\in I} u_i^k + \sum_{i\in I} v_i^k}$$
+* where $u$ is the softmax output of the network and $v$ is a one hot encoding of the ground truth segmentation map. Both $u$ and $v$ have shape $I × K$ with $i ∈ I$ being the number of pixels in the training patch/batch and $k ∈ K$ being the classes.
 
-
-
-## Training Procedure
+* ## Training Procedure
 * All models are trained from scratch and evaluated using five-fold cross-validation on the training set. We train our networks with a combination of dice and cross- entropy loss
 $$L_{total}=L_{dice}+L_{CE}$$
 * For 3D U-Nets operating on nearly entire patients (first stage of the U-Net Cascade and 3D U-Net if no cascade is necessary) we compute the dice loss for each sample in the batch and average over the batch
 * For all other networks we interpret the samples in the batch as a pseudo-volume and compute the dice loss over all voxels in the batch 
+
+### Data Augmentation
+* When training large neural networks from limited train- ing data, special care has to be taken to prevent overfitting.
+* We address this prob- lem by utilizing a large variety of data augmentation techniques
+* The following augmentation techniques were applied on the fly during training: random rota- tions, random scaling, random elastic deformations, gamma correction augmen- tation and mirroring.
+* Applying three dimensional data augmentation may be suboptimal if the maximum edge length of the input patch size of a 3D U-Net is more than two times as large as the shortest.
+* For datasets where this criterion applies we use our 2D data augmentation instead and apply it slice-wise for each sample.
+* The second stage of the U-Net Cascade receives the segmentations of the previous step as additional input channels
+* To prevent strong co-adaptation we apply random morphological operators (erode, dilate, open, close) and randomly remove connected components of these segmentations.
+
+### Patch Sampling
+* To increase the stability of our network training we enforce that more than a third of the samples in a batch contain at least one randomly chosen foreground class.
+
+### Inference
+* Due to the patch-based nature of our training, all inference is done patch-based as well. Since network accuracy decreases towards the border of patches, we weigh voxels close to the center higher than those close to the border, when aggregating predictions across patches. Patches are chosen to overlap by patch size / 2 and we further make use of test time data augmentation by mirroring all patches along all valid axes. Combining the tiled prediction and test time data augmentation result in segmentations where the decision for each voxel is obtained by aggregating up to 64 predictions (in the center of a patient using 3D U-Net). For the test cases we use the five networks obtained from our training set cross-validation as an ensemble to further increase the robustness of our models.
+
+### Postprocessing
+* A connected component analysis of all ground truth segmentation labels is per- formed on the training data. If a class lies within a single connected component in all cases, this behaviour is interepreted as a general property of the dataset. Hence, all but the largest connected component for this class are automatically removed on predicted images of the corresponding dataset.
+
+### Ensembling and Submission
+* To further increase the segmentation performance and robustness all possible combinations of two out of three of our models are ensembled for each dataset. For the final submission, the model (or ensemble) that achieves the highest mean foreground dice score on the training set cross-validation is automatically chosen.
+
+
+## Experiments and Results
+* We optimize our network topologie using five-fold cross-validations on the phase 1 datasets. Our phase 1 cross-validation results as well as the corresponding submitted test set results are summarized in Table 2. - indicates that the U-Net Cascade was not applicable (i.e. necessary, according to our criteria) to a dataset because it was already fully covered by the input patch size of the 3D U-Net. The model that was used for the final submission is highlighted in bold. Although several test set submissions were allowed by the platform, we believe it to be bad practice to do so. Hence we only submitted once and report the results of this single submission. As can be seen in Table 2 our phase 1 cross-validation results are robustly recovered on the held-out test set indicating a desired absence of over-fitting. The only dataset that suffers from a dip in performance on all of its foreground classes is BrainTumour. The data of this phase 1 dataset stems from the BRATS challenge [16] for which such performance drops between validation and testing are a common sight and attributed to a large shift in the respective data and/or ground-truth distributions.
+
+![image](https://github.com/joesiheon496/paper/assets/56191064/2028042d-53c4-4567-82ca-1673d6b3c64f)
+
+## Discussion
+* In this paper we present the nnU-Net segmentation framework for the medi- 
+ cal domain that directly builds around the original U-Net architecture [6] and dynamically adapts itself to the specifics of any given dataset. Based on our hy- pothesis that non-architectural modifications can be much more powerful than some of the recently presented architectural modifications, the essence of this framework is a thorough design of adaptive preprocessing, training scheme and inference. All design choices required to adapt to a new segmentation task are done in a fully automatic manner with no manual interaction. For each task the nnU-Net automatically runs a five-fold cross-validation for three different automatically configures U-Net models and the model (or ensemble) with the highest mean foreground dice score is chosen for final submission. In the con- text of the Medical Segmentation Decathlon we demonstrate that the nnU-Net performs competitively on the held-out test sets of 7 highly distinct medical datasets, achieving the highest mean dice scores for all classes of all tasks (ex- cept class 1 in the BrainTumour dataset) on the online leaderboard at the time of manuscript submission. We acknowledge that training three models and picking the best one for each dataset independently is not the cleanest solution. Given a larger time-scale, one could investigate proper heuristics to identify the best model for a given dataset prior to training. Our current tendency favors the U-Net Cascade (or the 3D U-Net if the cascade cannot be applied) with the sole (close) exceptions being the Prostate and Liver tasks. Additionally, the added benefit of many of our design choices, such as the use of Leaky ReLUs instead of regular ReLUs and the parameters of our data augmentation were not properly validated in the context of this challenge. Future work will therefore focus on systematically evaluating all design choices via ablation studies.
 
 ## Conclusion
 * All design choices required to adapt to a new segmentation task are done  in  a  fully  automatic  manner  with  no  manual  interaction. 
