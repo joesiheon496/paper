@@ -9,7 +9,9 @@
 ![image](https://github.com/joesiheon496/paper/assets/56191064/aeebc8e3-d1aa-4b20-96fd-b8c353ce2576)
 
 Fig. 1. U-Net Cascade(적용 가능한 데이터 세트에만 해당). 
+
 1단계(왼쪽): 3D U-Net이 다운샘플링된 데이터를 처리하고 결과 분할 맵이 원래 해상도로 업샘플링됩니다. 
+
 2단계(오른쪽): 이러한 분할은 전체 해상도 데이터에 대한 원-핫 인코딩으로 연결되고 두 번째 3D U-Net에 의해 정제됩니다.
 
 ## Method
