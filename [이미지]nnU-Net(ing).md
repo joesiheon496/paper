@@ -55,16 +55,16 @@ All data is cropped to the region of nonzero values. This has no effect on most 
 * Because  the  intensity  scale  of  CT  scans  is  absolute,  all  CT images are automatically normalized based on statistics of the entire respective dataset: If the modality description in a dataset’s corresponding json desccriptor file indicates ‘ct’, all intensity values occurring within the segmentation masks of  the  training  dataset  are  collected  and  the  entire  dataset  is  normalized  by clipping to the [0.5, 99.5] percentiles of these intensity values, followed by a z- score normalization based on the mean and standard deviation of all collected intensity  values. 
 * For  MRI  or  other  image  modalities  (i.e.  if  no  ‘ct’  string  is found in the modality), simple z-score normalization is applied to the patient individually.
 * If cropping reduces the average size of patients in a dataset (in voxels) by 1/4 or more the normalization is carried out only within the mask of nonzero elements and all values outside the mask are set to 0
+* The dice loss formulation used here is a multi-class adaptation of the variantproposed in [14]. Based on past experience [13,1] we favor this formulation overother variants [8,15]. The dice loss is implemented as follows:
+$$L_{dc}=-\frac{2}{|K|}\sum_{k\in K}\fac{\sum_{i\in I}u_{i}^{k}v_i^k}{\sum_{i\in I} u_i^k + \sum_{i\in I} v_i^k}$$
 
-$$L_{total}=L_{dice}+L_{CE}$$
 
-# ...
 
 ## Training Procedure
 * All models are trained from scratch and evaluated using five-fold cross-validation on the training set. We train our networks with a combination of dice and cross- entropy loss
+$$L_{total}=L_{dice}+L_{CE}$$
 * For 3D U-Nets operating on nearly entire patients (first stage of the U-Net Cascade and 3D U-Net if no cascade is necessary) we compute the dice loss for each sample in the batch and average over the batch
-* For all other networks we interpret the samples in the batch as a pseudo-volume and compute the dice loss over all voxels in the batch
-* 
+* For all other networks we interpret the samples in the batch as a pseudo-volume and compute the dice loss over all voxels in the batch 
 
 ## Conclusion
 * All design choices required to adapt to a new segmentation task are done  in  a  fully  automatic  manner  with  no  manual  interaction. 
