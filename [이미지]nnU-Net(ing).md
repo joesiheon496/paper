@@ -56,7 +56,7 @@ All data is cropped to the region of nonzero values. This has no effect on most 
 * For  MRI  or  other  image  modalities  (i.e.  if  no  ‘ct’  string  is found in the modality), simple z-score normalization is applied to the patient individually.
 * If cropping reduces the average size of patients in a dataset (in voxels) by 1/4 or more the normalization is carried out only within the mask of nonzero elements and all values outside the mask are set to 0
 * The dice loss formulation used here is a multi-class adaptation of the variantproposed in [14]. Based on past experience [13,1] we favor this formulation overother variants [8,15]. The dice loss is implemented as follows:
-$$L_{dc}=-\frac{2}{|K|}\sum_{k\in K}\fac{\sum_{i\in I}u_{i}^{k}v_i^k}{\sum_{i\in I} u_i^k + \sum_{i\in I} v_i^k}$$
+$$L_{dc}=-\frac{2}{|K|}\sum_{k\in K}\frac{\sum_{i\in I}u_{i}^{k}v_i^k}{\sum_{i\in I} u_i^k + \sum_{i\in I} v_i^k}$$
 
 
 
