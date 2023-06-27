@@ -31,7 +31,7 @@ tumour burden 변화(반응이라고 함)는 종종 생존 또는 삶의 질의 
 
 질병이 RECIST(표적 lesions의 척도 합계의 증가, non-target disease의 명백한 증가 또는 새로운 lesions의 출현)와 같은 전통적인 반응 기준에 기초한 질병 진행 기준을 충족하는 일부 환자는 늦게 발병한 것으로 나타났습니다.
 
-2009년에 WHO 기준(표적 lesions의 2차원 측정값 수집 포함)에 기반한 수정된 반응 기준인 **면역 관련 반응 기준 immune-related response criteria (irRC)**이 제안되었습니다.
+2009년에 WHO 기준(표적 lesions의 2차원 측정값 수집 포함)에 기반한 수정된 반응 기준인 **면역 관련 반응 기준 immune-related response criteria (irRC)** 이 제안되었습니다.
 
 주요 수정 사항은 새로운 대상 lesions의 측정을 포함하는 것입니다**(각각 크기는 최소 5 × 5mm여야 하며 총 최대 10개의 내장 lesions, 장기당 최대 5개의 새로운 lesions 및 5개의 새로운 피부 lesions**이 있어야 함).
 
