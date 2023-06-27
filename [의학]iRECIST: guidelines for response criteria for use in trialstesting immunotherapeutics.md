@@ -108,13 +108,14 @@ iRECIST의 전체 유효성 검사를 개발하고 계획하기 위해 추가 �
 ||RECIST 1.1|iRECIST |
 |------------------------------------|------------------------------------|--------------------------------------|
 |측정 가능한 질병과 측정 불가능한 질병의 정의 표적 질병의 수와 부위|측정 가능한 lesions은 직경이 ≥10mm(결절 lesions의 경우 ≥15mm)입니다. 최대 5개의 lesions(장기당 2개); 다른 모든 질병은 non-target으로 간주됩니다(결절 질환의 경우 단축이 10mm 이상이어야 함).|RECIST 1.1에서 변경 사항 없음 그러나 새로운 lesions은 RECIST 1.1에 따라 평가되지만 증례 보고서 양식에 별도로 기록됩니다(단, 베이스라인에서 식별된 표적 lesions에 대한 lesions 합계에는 포함되지 않음).|
-|완전 반응, 부분 반응 또는 안정 질환|완전 반응, 부분 반응 또는 안정 질환 이전의 진행 기준을 충족할 수 없음|iCR, iPR 또는 iSD 이전에는 iUPD(하나 이상의 인스턴스)가 있었지만 iCPD는 ​​없었을 수 있습니다.|
-|완전대응 또는 부분대응 확인|비무작위 시험에만 필요|As per RECIST 1.1|
+|Complete response, partial response 또는 stable disease|Complete response, partial response 또는 stable disease 이전의 진행 기준을 충족할 수 없음|iCR, iPR 또는 iSD 이전에는 iUPD(하나 이상의 인스턴스)가 있었지만 iCPD는 ​​없었을 수 있습니다.|
+|complete response  또는 partial response  확인|비무작위 시험에만 필요|As per RECIST 1.1|
 |안정적인 질병의 확인|Not required|As per RECIST 1.1|
 |새로운 lesions|진행 결과; 기록되었지만 측정되지 않은|iUPD의 결과이지만 iCPD는 ​​다음 평가에서 추가로 새로운 lesions이 나타나거나 새로운 lesions의 크기 증가가 보이는 경우에만 이 범주에 따라 할당됩니다(새로운 lesions 대상의 합계에 대해 ≥5mm 또는 새로운 lesions 비- 표적); 이전에 기록된 적이 없는 새로운 lesions의 출현으로 iCPD를 확인할 수도 있습니다.|
 |독립적인 맹검 검토 및 중앙 스캔 수집|일부 상황에서 권장됨—예: 시판 승인을 위해 계획된 진행 기반 평가변수가 있는 일부 임상시험|모든 임상시험에 권장되는 스캔 수집(단, 독립적인 검토는 아님)|
 |진행 확인|Not required (unless equivocal)|Required|
 |임상 상태 고려|평가에 포함되지 않음|iUPD 후 치료 지속 여부를 결정할 때 임상적 안정성을 고려함|
+
 Table1. "i"는 iRECIST를 사용하여 할당된 면역 반응을 나타냅니다. **RECIST=고형 종양의 반응 평가 기준. iUPD=확인되지 않은 진행. iCPD=확인된 진행. iCR=완전 응답. iPR=부분 응답. iSD=안정적 질병**
 
 RECIST 1.1의 지속적인 사용은 림프절을 포함한 종양 lesions의 측정 가능 여부를 정의하고 뼈 lesions(bone lesions), 낭성 lesions(cystic lesions) 및 이전 국소 치료(예: 방사선 요법(radiotherapy); 표 1).
@@ -143,9 +144,9 @@ iUPD에서 종양 크기 또는 범위에 변화가 없으면 시점 응답은 �
 
 - 측정하기에 너무 작아지는 lesions(lesions that become too small to measure),
 - 갈라지거나 합체되는 lesions(lesions that split or coalesce),
-- 완전 반응(complete response),
-- 부분 반응(partial response),
-- 안정 질환(stable disease) 및
+- Complete response(complete response),
+- partial response(partial response),
+- stable disease(stable disease) 및
 - 진행성 질환
   
 정의를 포함하여 시점 반응에 대해 변경되지 않습니다.
@@ -158,9 +159,9 @@ iUPD에서 종양 크기 또는 범위에 변화가 없으면 시점 응답은 �
 
 **iUPD(4-8주 후) 이후의 다음 영상 평가에서 iUPD의 표적 질병 측정치 합계가 추가로 증가하고 최소 5mm 증가하면 표적 lesions 범주에서 진행이 확인**됩니다.
 
-**그러나 iUPD 이후의 다음 평가에서 완전 반응, 부분 반응 또는 안정적인 질병 기준(기준선과 비교하고 RECIST 1.1에 정의된 대로)이 충족되는 경우 iCPD(iUPD 이후)에 대한 기준은 충족된 것으로 간주되지 않습니다.**
+**그러나 iUPD 이후의 다음 평가에서 Complete response, partial response 또는 안정적인 질병 기준(기준선과 비교하고 RECIST 1.1에 정의된 대로)이 충족되는 경우 iCPD(iUPD 이후)에 대한 기준은 충족된 것으로 간주되지 않습니다.**
 
-상태가 재설정됩니다(모든 진행이 나중에 완전 반응, 부분 반응 또는 안정적인 질병을 배제하는 RECIST 1.1과 달리).
+상태가 재설정됩니다(모든 진행이 나중에 Complete response, partial response 또는 안정적인 질병을 배제하는 RECIST 1.1과 달리).
 
 **그런 다음 iCR, iPR 또는 iSD를 지정**해야 합니다. **변화가 감지되지 않으면 시점 응답은 iUPD**입니다.
 
@@ -269,7 +270,7 @@ iCR 및 iPR의 기간은 iCR 또는 iPR에 대한 기준이 처음 충족되는 
 
 모든 임상시험, 특히 비교 임상시험의 경우, 반응 평가는 일정 일정에 따라 수행되어야 하며 치료 지연 또는 iUPD를 확인하기 위해 또는 일부 임상시험에서 완전하거나 부분적인 응답.
 
-종양 재평가는 iUPD를 확인하기 위해(또는 비무작위 임상시험에서 iCR 또는 iPR ≥4주가 완전 또는 부분 반응을 보이는 스캔 후 확인하기 위해) 원래 계획보다 일찍(iUPD 후 4주에서 8주 사이에만) 수행할 수 있습니다.
+종양 재평가는 iUPD를 확인하기 위해(또는 비무작위 임상시험에서 iCR 또는 iPR ≥4주가 완전 또는 partial response을 보이는 스캔 후 확인하기 위해) 원래 계획보다 일찍(iUPD 후 4주에서 8주 사이에만) 수행할 수 있습니다.
 
 진행이 확인되지 않으면 원래 계획대로 재평가를 계속해야 합니다. (즉, 8주, 16주 및 24주에 스캔을 수행하고 반응을 확인하기 위해 12주에 스캔을 수행한 경우 다음 스캔은 계획대로 16주 및 24주에 수행해야 합니다).
 
