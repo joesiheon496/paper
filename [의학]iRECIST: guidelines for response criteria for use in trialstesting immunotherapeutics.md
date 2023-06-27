@@ -110,9 +110,9 @@ iRECIST의 전체 유효성 검사를 개발하고 계획하기 위해 추가 �
 |측정 가능한 질병과 측정 불가능한 질병의 정의 표적 질병의 수와 부위|측정 가능한 lesions은 직경이 ≥10mm(결절 lesions의 경우 ≥15mm)입니다. 최대 5개의 lesions(장기당 2개); 다른 모든 질병은 non-target으로 간주됩니다(결절 질환의 경우 단축이 10mm 이상이어야 함).|RECIST 1.1에서 변경 사항 없음 그러나 새로운 lesions은 RECIST 1.1에 따라 평가되지만 증례 보고서 양식에 별도로 기록됩니다(단, 베이스라인에서 식별된 표적 lesions에 대한 lesions 합계에는 포함되지 않음).|
 |Complete response, partial response 또는 stable disease|Complete response, partial response 또는 stable disease 이전의 진행 기준을 충족할 수 없음|iCR, iPR 또는 iSD 이전에는 iUPD(하나 이상의 인스턴스)가 있었지만 iCPD는 ​​없었을 수 있습니다.|
 |complete response  또는 partial response  확인|비무작위 시험에만 필요|As per RECIST 1.1|
-|안정적인 질병의 확인|Not required|As per RECIST 1.1|
+|Confirmation of stable disease|Not required|As per RECIST 1.1|
 |새로운 lesions|진행 결과; 기록되었지만 측정되지 않은|iUPD의 결과이지만 iCPD는 ​​다음 평가에서 추가로 새로운 lesions이 나타나거나 새로운 lesions의 크기 증가가 보이는 경우에만 이 범주에 따라 할당됩니다(새로운 lesions 대상의 합계에 대해 ≥5mm 또는 새로운 lesions 비- 표적); 이전에 기록된 적이 없는 새로운 lesions의 출현으로 iCPD를 확인할 수도 있습니다.|
-|독립적인 맹검 검토 및 중앙 스캔 수집|일부 상황에서 권장됨—예: 시판 승인을 위해 계획된 진행 기반 평가변수가 있는 일부 임상시험|모든 임상시험에 권장되는 스캔 수집(단, 독립적인 검토는 아님)|
+|Independent blinded review and central collection of scans|일부 상황에서 권장됨—예: 시판 승인을 위해 계획된 진행 기반 평가변수가 있는 일부 임상시험|모든 임상시험에 권장되는 스캔 수집(단, 독립적인 검토는 아님)|
 |진행 확인|Not required (unless equivocal)|Required|
 |임상 상태 고려|평가에 포함되지 않음|iUPD 후 치료 지속 여부를 결정할 때 임상적 안정성을 고려함|
 
