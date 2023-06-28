@@ -1,5 +1,6 @@
 ASCO ARTICLE CITATION
-DOI: 10.1200/JCO.2023.41.16_suppl.e13545 Journal of Clinical Oncology 41, no. 16_suppl (June 01, 2023) e13545-e13545.
+
+DOI: [10.1200/JCO.2023.41.16_suppl.e13545 Journal of Clinical Oncology 41, no. 16_suppl (June 01, 2023) e13545-e13545.](https://ascopubs.org/doi/abs/10.1200/JCO.2023.41.16_suppl.e13545?af=R)
 
 Published online May 31, 2023.
 
