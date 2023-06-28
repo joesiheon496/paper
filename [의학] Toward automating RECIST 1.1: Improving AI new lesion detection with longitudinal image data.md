@@ -34,8 +34,8 @@ AI에서 시간 데이터의 사용은 비의료 응용 분야에서 빠르게 �
 각 스캔 쌍에서 간 내에서 하나의 양성(추적에 새로운 병변 포함) 및 하나의 음성(추적에 병변 없음) 6x6cm 이미지 패치를 선택하여 pos/neg의 균형 잡힌 수로 3296개 패치의 견본 데이터 세트를 생성합니다. 
 
 우리는 새로운 간 병변의 존재를 분류하기 위해 두 개의 심층 신경망을 훈련했습니다.
-  1) a conventional single timepoint model (ST) trained on DL patches only, i.e. 후속 스캔만 사용
-  2) an experimental dual-timepoint model (DT) DL-HL 쌍 스캔에서 패치 쌍에 대해 훈련되었습니다.
+  1) a conventional single timepoint model (ST) trained on DL patches only, i.e. using the follow up scan only
+  2) an experimental dual-timepoint model (DT) trained on patch pairs from DL-HL paired scans.
 
 모델 AUC와 정확도를 비교하기 위해5-fold cross validation과 paired t 테스트를 사용했습니다.
 
