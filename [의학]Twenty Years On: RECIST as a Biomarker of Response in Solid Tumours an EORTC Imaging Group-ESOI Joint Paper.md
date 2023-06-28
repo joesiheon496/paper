@@ -24,3 +24,7 @@
 ![image](https://github.com/joesiheon496/paper/assets/56191064/210a7827-9d3f-4043-80a0-43386c48ba9f)
 
  single dimensio(장축)으로 측정된 직경, 측정 사이의 백분율 변화, 병변이 구형이라고 가정한 해당 부피 및 부피의 백분율 변화를 포함하는 이론적 병변에 대해 반복 측정이 제공됩니다.
+
+> 재현성(reproducibility )은 동일한 샘플을 변경된 측정 조건으로 여러 번 연속 측정했을 때 얻은 결과의 편차
+> 
+![image](https://github.com/joesiheon496/paper/assets/56191064/9c71304f-0866-4150-89e2-4e51976c05e9)
