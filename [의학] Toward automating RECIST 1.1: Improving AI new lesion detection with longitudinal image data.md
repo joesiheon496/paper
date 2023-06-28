@@ -26,8 +26,8 @@ AI에서 시간 데이터의 사용은 비의료 응용 분야에서 빠르게 �
 # Methods: 
 
 두 개의 공개 데이터 세트에서 CT 이미지를 활용했습니다. 
-  1) diseased liver (DL), a subset of DeepLesion (doi: 10.1117/1.JMI.5.3.036501)
-  2) healthy liver (HL) from potential liver donors (Med Image Anal 69 (2021) 101950).. 
+  1) diseased liver (DL), a subset of DeepLesion ([doi: 10.1117/1.JMI.5.3.036501](https://pubmed.ncbi.nlm.nih.gov/30035154/))
+  2) healthy liver (HL) from potential liver donors ([Med Image Anal 69 (2021) 101950](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10178485/))
 
 새로운 병변이 있는 공개적으로 사용 가능한 종단 이미지 데이터 세트가 없기 때문에 HL 스캔(sim 건강 기준선)을 DL 스캔(새로운 병변에 대한 시뮬레이션 후속 조치)으로 등록하고 잘 짝을 이루는 상호 정보를 사용하는 이미지 종단 연구를 시뮬레이션("sim")했습니다. 
 
