@@ -8,4 +8,6 @@
 # Introduction
 |Overall Response|Target Lesions|Non Target Lesions|New Lesions|
 |----------------|------------------------|------------------------|------|
-|Definition|- 가장 긴 직경이 10mm 이상인 병변 및 신뢰할 수 있는 측정으로 충분히 잘 정의된 한계 \n - |||
+|Definition|- 가장 긴 직경이 10mm 이상인 병변 및 신뢰할 수 있는 측정으로 충분히 잘 정의된 한계 
+
+- |||
